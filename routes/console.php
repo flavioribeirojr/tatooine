@@ -16,3 +16,10 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+//Use it for update your resources or create them
+Artisan::command('resource:run', function () {
+    Artisan::call('db:seed', [
+        '--class' => 'ResourcesPermissionsSeeder'
+    ]);
+})->describe('Creates the resources with its methods into the database');

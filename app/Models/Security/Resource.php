@@ -8,7 +8,7 @@ class Resource extends Model
 {
     protected $primaryKey = 'rsc_id';
     
-    protected $fillable = ['rsc_name'];
+    protected $fillable = ['rsc_name', 'rsc_description'];
 
     public function permissions()
     {

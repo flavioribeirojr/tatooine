@@ -14,24 +14,41 @@ class ResourcesPermissionsSeeder extends Seeder
         $this->adminProfile = Profile::where('prf_name', 'master')->first();
 
         //USER RESOURCE
-        $this->createNewResource('users', [
-            'index', 'create', 'edit', 'delete', 'details'
+        $this->createNewResource(['users' => 'Gerenciamento de usuários'], [
+            'index'   => 'Listagem de usuários', 
+            'create'  => 'Cadastrar usuário', 
+            'edit'    => 'Editar usuário', 
+            'delete'  => 'Excluir usuário', 
+            'details' => 'Gerenciar perfis do usuário'
         ]);
         
         //PROFILE RESOURCE
-        $this->createNewResource('profiles', [
-            'index', 'create', 'edit', 'delete', 'details'
+        $this->createNewResource(['profiles' => 'Gerenciamento de perfis'], [
+            'index'   => 'Listagem de perfis', 
+            'create'  => 'Cadastrar perfil', 
+            'edit'    => 'Editar perfil', 
+            'delete'  => 'Excluir perfil', 
+            'details' => 'Gerenciar permissões do perfil'
         ]);
     }
 
-    private function createNewResource(string $resourceName, array $permissions)
+    /**
+     * Creates a new resource with 
+     * @method createNewResource
+     */
+    private function createNewResource(array $resource, array $permissions)
     {
-        if (Resource::where('rsc_name', $resourceName)->count()) return;
+        list($resourceName, $resourceDescription) = array_divide($resource);
+        
+        $resource = Resource::where('rsc_name', head($resourceName))->first();
 
-        $resource = Resource::create([
-            'rsc_name' => $resourceName
-        ]);
-
+        if (!$resource) {
+            $resource = Resource::create([
+                'rsc_name'        => head($resourceName),
+                'rsc_description' => head($resourceDescription)
+            ]);
+        }
+        
         $methods = $this->formatPermissionsIntoMethods($permissions);
 
         $permissions = $resource->permissions()->createMany($methods);
@@ -42,11 +59,17 @@ class ResourcesPermissionsSeeder extends Seeder
     private function formatPermissionsIntoMethods(array $permissions)
     {
         $methods = [];
+        
+        array_walk($permissions, function ($description, $slug) use (&$methods) {
 
-        array_walk($permissions, function ($permission) use (&$methods) {
-            $methods[] = ['prm_method' => $permission];
+            if (!Permission::where('prm_method', $slug)->count()) {
+                $methods[] = [
+                    'prm_method'      => $slug,
+                    'prm_description' => $description
+                ];
+            }
         });
-
+        
         return $methods;
     }
 }

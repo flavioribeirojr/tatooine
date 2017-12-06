@@ -16,6 +16,7 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('prm_id');
             $table->string('prm_method', 60);
+            $table->string('prm_description', 100);
             $table->integer('prm_rsc_id')->unsigned();
             $table->timestamps();
 

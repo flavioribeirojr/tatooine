@@ -8,7 +8,11 @@ class Permission extends Model
 {
     protected $primaryKey = 'prm_id';
     
-    protected $fillable = ['prm_method', 'prm_rsc_id'];
+    protected $fillable = [
+        'prm_method',
+        'prm_description', 
+        'prm_rsc_id'
+    ];
 
     public function resource()
     {
