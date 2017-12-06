@@ -12,11 +12,11 @@ class Profile extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\Security\User', 'users_profiles', 'usp_prf_id', 'usr_id');
+        return $this->belongsToMany('App\Models\Security\User', 'users_profiles', 'usp_prf_id', 'usp_usr_id');
     }
 
     public function permissions()
     {
-        return $this->belongsToMany('App\Models\Security\Permissions', 'profile_permissions', 'pfp_prf_id', 'pfp_prm_id');
+        return $this->belongsToMany('App\Models\Security\Permission', 'profile_permissions', 'pfp_prf_id', 'pfp_prm_id');
     }
 }

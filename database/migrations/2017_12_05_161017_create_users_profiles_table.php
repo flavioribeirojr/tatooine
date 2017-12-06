@@ -16,7 +16,6 @@ class CreateUsersProfilesTable extends Migration
         Schema::create('users_profiles', function (Blueprint $table) {
             $table->integer('usp_usr_id')->unsigned();
             $table->integer('usp_prf_id')->unsigned();
-            $table->timestamps();
 
             $table->foreign('usp_usr_id')->references('usr_id')->on('users')->onDelete('cascade');
             $table->foreign('usp_prf_id')->references('prf_id')->on('profiles')->onDelete('cascade');
