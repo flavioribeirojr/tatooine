@@ -3,6 +3,7 @@
 /public/storage
 /public/theme
 /public/plugins
+/public/js/pages
 /storage/*.key
 /vendor
 /.idea

@@ -12,9 +12,14 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+   .sass('resources/assets/sass/app.scss', 'public/css')
 
-mix.copy('node_modules/bootstrap/', 'public/plugins/bootstrap/', false);
-mix.copy('node_modules/jquery/', 'public/plugins/jquery/', false);
-mix.copy('node_modules/font-awesome/', 'public/plugins/font-awesome/', false);
-mix.copy('node_modules/admin-lte/', 'public/theme/', false);
+mix.copy('node_modules/bootstrap/', 'public/plugins/bootstrap/', false)
+mix.copy('node_modules/jquery/', 'public/plugins/jquery/', false)
+mix.copy('node_modules/font-awesome/', 'public/plugins/font-awesome/', false)
+mix.copy('node_modules/admin-lte/', 'public/theme/', false)
+
+//APPLICATION JS
+
+//Login page
+mix.js('resources/assets/js/components/Login/index.js', 'public/js/pages/login')

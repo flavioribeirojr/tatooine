@@ -9,11 +9,18 @@
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/dist/css/AdminLTE.min.css') }}">
+    <link href="{{ asset('fonts/Oxygen/Oxygen-Regular.ttf') }}" rel="stylesheet">
 
     <style>
+        @font-face {
+            src: url("{{ asset('fonts/Oxygen/Oxygen-Regular.ttf') }}");
+            font-family: Oxygen;
+        }
+
         body {
             background: linear-gradient(0deg,rgba(12, 64, 210, 0.41),rgba(21, 18, 76, 0.53)),url("{{ asset('images/login-bg.jpg') }}");
             background-size: cover;
+            font-family: 'Oxygen', sans-serif;
         }
 
         .login-logo a {
@@ -23,35 +30,26 @@
         .form-group {
             margin-bottom: 40px;
         }
+
+        input:-webkit-autofill, input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 30px white inset;
+        }
+
+        .btn-primary:hover {
+            border-color: #367fa9;
+        }
+
     </style>
 </head>
 <body>
     <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>{{ config('app.name') }}</b></a>
+        <a><b>{{ config('app.name') }}</b></a>
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body">
+    <div class="login-box-body" id="login">
         <p class="login-box-msg">Informe suas credenciais de acesso</p>
-
-        <form action="../../index2.html" method="post">
-            <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <!-- /.col -->
-                <div class="col-xs-offset-8 col-xs-4">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
-                </div>
-                <!-- /.col -->
-            </div>
-        </form>
-
+        <login-form></login-form>
     </div>
     <!-- /.login-box-body -->
     </div>
@@ -60,5 +58,11 @@
     <script src="{{ asset('plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('theme/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/pages/login/index.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('input').attr('spellcheck', 'false')
+        })
+    </script>
 </body>
 </html>
