@@ -10,8 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('master.master');
+
+Route::group(['middleware' => 'security'], function () {
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', function () {
+            return view('master.master');
+        }); 
+    });
 });
 
 Route::get('/login', function () {
