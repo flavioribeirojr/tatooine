@@ -1,28 +1,28 @@
 <template>
     <form @submit.prevent="loginUser">
-        <div class="form-group has-feedback" :class="{'has-error': errors.has('email')}">
+        <div class="form-group has-feedback" :class="{'has-error': errors.has('usr_email')}">
             <input 
                 type="email" 
-                name="email" 
+                name="usr_email" 
                 class="form-control" 
-                placeholder="Email" 
-                v-model="email"
+                placeholder="Email"
+                v-model="usr_email"
                 v-validate="'required|email'"
             />
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            <span v-if="errors.has('email')" class="help-block">{{ errors.first('email') }}</span>
+            <span v-if="errors.has('usr_email')" class="help-block">{{ errors.first('usr_email') }}</span>
         </div>
-        <div class="form-group has-feedback" :class="{'has-error': errors.has('password')}">
+        <div class="form-group has-feedback" :class="{'has-error': errors.has('usr_password')}">
             <input 
                 type="password" 
-                name="password" 
+                name="usr_password" 
                 class="form-control" 
                 placeholder="Senha" 
-                v-model="password"
+                v-model="usr_password"
                 v-validate="'required'"
             />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            <span v-if="errors.has('password')" class="help-block">{{ errors.first('password') }}</span>
+            <span v-if="errors.has('usr_password')" class="help-block">{{ errors.first('usr_password') }}</span>
         </div>
         <div class="row">
             <div class="col-xs-offset-8 col-xs-4">
@@ -38,16 +38,23 @@ import axios from 'axios';
 export default {
   data () {
       return {
-        email: '',
-        password: ''
+        usr_email: '',
+        usr_password: '',
+        loginError: false
       }
   },
+  props: ['baseUrl', 'redirectUrl'],
   methods: {
       loginUser () {
         this.$validator.validateAll().then( pass => {
           if (!pass) return;
 
-
+          axios.post(this.baseUrl + '/login', {
+            usr_email: this.usr_email, 
+            usr_password: this.usr_password
+          })
+          .then( (response) => window.location.replace(this.redirectUrl) )
+          .catch( () => toastr.error('Credenciais incorretas', 'Erro!') )
         })
       }
   },
@@ -61,6 +68,8 @@ export default {
         }
       }
     })
+
+    this.$validator.setLocale('br')
   }
 }
 </script>

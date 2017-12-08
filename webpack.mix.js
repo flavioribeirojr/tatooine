@@ -19,6 +19,9 @@ mix.copy('node_modules/jquery/', 'public/plugins/jquery/', false)
 mix.copy('node_modules/font-awesome/', 'public/plugins/font-awesome/', false)
 mix.copy('node_modules/admin-lte/', 'public/theme/', false)
 
+//JS PLUGINS
+mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false);
+
 //APPLICATION JS
 
 //Login page

@@ -21,7 +21,8 @@ class User extends Authenticatable
         'usr_email', 
         'usr_password',
         'usr_name',
-        'usr_enabled'
+        'usr_enabled',
+        'usr_remember_token'
     ];
 
     /**
@@ -36,5 +37,15 @@ class User extends Authenticatable
     public function profiles()
     {
         return $this->belongsToMany('App\Models\Security\Profile', 'users_profiles', 'usp_usr_id', 'usp_prf_id');
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->usr_password;
+    }
+
+    public function getRememberTokenAttribute($value)
+    {
+        return $this->usr_remember_token;
     }
 }

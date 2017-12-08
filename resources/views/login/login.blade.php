@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/dist/css/AdminLTE.min.css') }}">
     <link href="{{ asset('fonts/Oxygen/Oxygen-Regular.ttf') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/build/toastr.min.css') }}">
 
     <style>
         @font-face {
@@ -42,22 +43,23 @@
     </style>
 </head>
 <body>
-    <div class="login-box">
-    <div class="login-logo">
-        <a><b>{{ config('app.name') }}</b></a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body" id="login">
-        <p class="login-box-msg">Informe suas credenciais de acesso</p>
-        <login-form></login-form>
-    </div>
-    <!-- /.login-box-body -->
-    </div>
 
+    <div class="login-box">
+        <div class="login-logo">
+            <a><b>{{ config('app.name') }}</b></a>
+        </div>
+        
+        <div class="login-box-body" id="login">
+            <p class="login-box-msg">Informe suas credenciais de acesso</p>
+            <login-form base-url="{{url('')}}" redirect-url="{{url('/')}}"></login-form>
+        </div>
+    </div>
 
     <script src="{{ asset('plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('theme/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('plugins/toastr/build/toastr.min.js') }}"></script>
+
     <script src="{{ asset('js/pages/login/index.js') }}"></script>
     <script>
         $(document).ready(function () {
