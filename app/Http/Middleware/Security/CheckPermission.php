@@ -23,22 +23,17 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
-        $user = \Auth::user();
+        $user = \Auth::user();        
         
         if (!$user) {
             return redirect('/login', 302);
         }
-
+        
         if (config('app.debug')) {
             return $next($request);
         }
-
-        $url = explode('/', $request->path());
         
-        $resource = $url[0];
-        $permission = !empty($url[1]) ? $url[1] : 'index';
-        
-        $userHasPermission = $this->security->checkUserPermission($user, $resource, $permission);
+        $userHasPermission = $this->security->checkUserPermission($user, $request->path());
         
         if (!$userHasPermission) {
             return redirect('/login', 302);

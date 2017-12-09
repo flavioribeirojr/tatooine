@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Security\Controllers;
+namespace Tests\Feature\Http\Controllers\Security;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

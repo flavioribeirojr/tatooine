@@ -11,11 +11,20 @@
 |
 */
 
-Route::group(['middleware' => 'security'], function () {
+Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')], function () {
+    
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', function () {
             return view('master.master');
-        }); 
+        });
+    });
+
+    Route::group(['prefix' => 'permissions'], function () {
+        Route::get('/checkpermission', '\App\Http\Controllers\Security\Async\PermissionsController@checkPermission');
+    });
+
+    Route::get('/', function () {
+        return view('home.home');
     });
 });
 

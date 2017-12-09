@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'base_route' => env('BASE_ROUTE', 'tatooine'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

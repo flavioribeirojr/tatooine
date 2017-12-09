@@ -30,6 +30,10 @@ class ResourcesPermissionsSeeder extends Seeder
             'delete'  => 'Excluir perfil', 
             'details' => 'Gerenciar permissões do perfil'
         ]);
+
+        $this->createNewResource(['permissions' => 'Gerenciamento de permissões'], [
+            'checkpermission' => 'Verificação de permissão de acordo com rota'
+        ]);
     }
 
     /**
