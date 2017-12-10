@@ -16,7 +16,7 @@ class Permission extends Model
 
     public function resource()
     {
-        return $this->belongsTo('App\Models\Security\Resource', 'rsc_id', 'prm_rsc_id');
+        return $this->belongsTo('App\Models\Security\Resource', 'prm_rsc_id', 'rsc_id');
     }
 
     public function profiles()

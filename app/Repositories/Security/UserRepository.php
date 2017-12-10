@@ -28,4 +28,15 @@ class UserRepository extends Repository
 
         return false;
     }
+
+    public function getUserPermissions(User $user)
+    {
+        $permissions = $user->profiles->load('permissions')->pluck('permissions')->unique('prm_method')->collapse();
+        
+        return $permissions->groupBy('prm_rsc_id')->map(function ($permissionByResource) {
+            $resource = $permissionByResource->first()->resource->rsc_name;
+            
+            return [$resource => $permissionByResource->pluck('prm_method')->toArray()];
+        })->collapse()->toArray();
+    }
 }

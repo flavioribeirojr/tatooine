@@ -49,12 +49,34 @@ export default {
         this.$validator.validateAll().then( pass => {
           if (!pass) return;
 
-          axios.post(this.baseUrl + '/login', {
+          axios.post(`${this.baseUrl}/login`, {
             usr_email: this.usr_email, 
             usr_password: this.usr_password
           })
-          .then( (response) => window.location.replace(this.redirectUrl) )
+          .then( () => {
+            this.mountUserPermissions()
+          })
           .catch( () => toastr.error('Credenciais incorretas', 'Erro!') )
+        })
+      },
+
+      mountUserPermissions() {
+        axios.get(`${this.baseUrl}/${this.$url}/users/permissions`)
+          .then((serverResponse) => {
+            this.saveUserPermissions(serverResponse.data.permissions)
+
+            window.location.replace(this.redirectUrl)
+          })
+      },
+
+      saveUserPermissions (permissions) {
+        const userPermissions = JSON.stringify(permissions)
+
+        Object.defineProperty(localStorage, 'permissions', {
+          enumerable: false,
+          configurable: false,
+          writable: false,
+          value: userPermissions
         })
       }
   },

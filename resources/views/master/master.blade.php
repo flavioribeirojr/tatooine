@@ -12,6 +12,25 @@
     <link rel="stylesheet" href="{{ asset('theme/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/dist/css/skins/skin-blue.min.css') }}">
 
+    <style>
+        @font-face {
+            src: url("{{ asset('fonts/Oxygen/Oxygen-Regular.ttf') }}");
+            font-family: Oxygen;
+        }
+
+        body {
+            font-family: 'Oxygen', sans-serif;
+        }
+
+        input:-webkit-autofill, input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 30px white inset;
+        }
+
+        .btn-primary:hover {
+            border-color: #367fa9;
+        }
+    </style>
+
     @yield('css')
 </head>
 <body class="skin-blue">

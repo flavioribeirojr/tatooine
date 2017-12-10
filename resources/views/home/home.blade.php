@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <action 
-        action="{{url('/')}}/security/users/create" 
+    <action
+        action="users/create"
         aclass="btn btn-primary" 
         message="Criar novo usuário"
     >

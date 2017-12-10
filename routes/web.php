@@ -13,10 +13,12 @@
 
 Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')], function () {
     
-    Route::group(['prefix' => 'users'], function () {
+    Route::group(['prefix' => 'users', 'namespace' => 'Security'], function () {
         Route::get('/', function () {
             return view('master.master');
         });
+
+        Route::get('/permissions', 'Async\UsersController@getUserPermissions');
     });
 
     Route::group(['prefix' => 'permissions'], function () {
