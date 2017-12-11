@@ -2,13 +2,9 @@
 
 @section('content')
 
-    <action
-        action="users/create"
-        aclass="btn btn-primary" 
-        message="Criar novo usuário"
-    >
-    </action>
-
-<h1>Ola</h1>
+    <div class="jumbotron">
+        <h1 class="text-center">Your home page</h1>
+        <p class="text-center">The place to put important information about your application</p>
+    </div>
 
 @stop

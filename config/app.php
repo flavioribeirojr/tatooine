@@ -30,6 +30,8 @@ return [
 
     'base_route' => env('BASE_ROUTE', 'tatooine'),
 
+    'home' => env('CUSTOM_HOME', 'home'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

@@ -29,6 +29,15 @@
         .btn-primary:hover {
             border-color: #367fa9;
         }
+
+        .content-wrapper {
+            padding: 20px 40px;
+            padding-left: 20px;
+        }
+
+        .page-title {
+            margin-top: 0;
+        }
     </style>
 
     @yield('css')

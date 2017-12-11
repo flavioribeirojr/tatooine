@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "axios": "^0.17",
+    "babel-preset-stage-2": "^6.24.1",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.1",
     "jquery": "^3.2",
@@ -23,6 +24,7 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "toastr": "^2.1.2",
-    "vee-validate": "^2.0.0-rc.25"
+    "vee-validate": "^2.0.0-rc.25",
+    "vuetable-2": "^1.7.1"
   }
 }

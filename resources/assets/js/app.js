@@ -5,14 +5,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
-window.Vue = require('vue');
+window.Vue = require('vue')
 
-// Vue.use(require('./url.js'));
-Vue.prototype.$baseUrl = process.env.MIX_BASE_ROUTE;
+Vue.prototype.$baseUrl = process.env.MIX_BASE_ROUTE
 
-Vue.component('action', require('./components/Action.vue'));
+Vue.component('action', require('./components/Action.vue'))
+Vue.component('data-grid', require('./components/DataGrid.vue'))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

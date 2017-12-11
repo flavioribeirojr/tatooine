@@ -23,4 +23,11 @@ class UsersController extends Controller
         
         return response(['permissions' => $userPermissions], 200);
     }
+
+    public function getUsers(Request $request)
+    {
+        $data = $this->userRepository->listModel($request->all());
+
+        return response($data, 200);
+    }
 }

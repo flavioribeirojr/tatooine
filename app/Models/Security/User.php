@@ -34,6 +34,12 @@ class User extends Authenticatable
         'usr_password'
     ];
 
+    protected $filterColumns = [
+        'usr_username' => '=',
+        'usr_name'     => 'like',
+        'usr_enabled'  => '='
+    ];
+
     public function profiles()
     {
         return $this->belongsToMany('App\Models\Security\Profile', 'users_profiles', 'usp_usr_id', 'usp_prf_id');
@@ -47,5 +53,15 @@ class User extends Authenticatable
     public function getRememberTokenAttribute($value)
     {
         return $this->usr_remember_token;
+    }
+
+    public function getFilterColumns()
+    {
+        return $this->filterColumns;
+    }
+
+    public function getUsrEnabledList($value)
+    {
+        return $value == 0 ? 'Disabled' : 'Enabled';
     }
 }

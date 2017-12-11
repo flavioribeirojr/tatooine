@@ -12,21 +12,18 @@
 */
 
 Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')], function () {
+    Route::get('/home', function () {
+        return view('home.home');
+    });
     
     Route::group(['prefix' => 'users', 'namespace' => 'Security'], function () {
         Route::get('/', function () {
             return view('master.master');
         });
+        Route::get('/', 'UsersController@index');
 
+        Route::get('/list', 'Async\UsersController@getUsers');
         Route::get('/permissions', 'Async\UsersController@getUserPermissions');
-    });
-
-    Route::group(['prefix' => 'permissions'], function () {
-        Route::get('/checkpermission', '\App\Http\Controllers\Security\Async\PermissionsController@checkPermission');
-    });
-
-    Route::get('/', function () {
-        return view('home.home');
     });
 });
 

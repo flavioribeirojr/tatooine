@@ -5,7 +5,12 @@
  * 
  * @return string
  */
-function baseUrl()
+function baseUrl(string $complement = '')
 {
-    return config('app.base_route');
+    return config('app.base_route') . $complement;
+}
+
+function home()
+{
+    return url('/') . '/' . baseUrl() . '/' . config('app.home');
 }

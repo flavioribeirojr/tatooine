@@ -51,7 +51,7 @@
         
         <div class="login-box-body" id="login">
             <p class="login-box-msg">Informe suas credenciais de acesso</p>
-            <login-form base-url="{{url('')}}" redirect-url="{{url('/')}}"></login-form>
+            <login-form base-url="{{url('')}}" redirect-url="{{home()}}"></login-form>
         </div>
     </div>
 
