@@ -1,5 +1,9 @@
+
 <template>
   <div>
+    <div class="row">
+      <data-grid-filter :filters="userFilters"></data-grid-filter>
+    </div>
     <vuetable
       ref="vuetable"
       class="table-bordered table-striped"
@@ -10,13 +14,21 @@
       pagination-path=""
       @vuetable:pagination-data="onPaginationData"
     >
+      <template slot="actions" slot-scope="props">
+        <data-grid-actions 
+          :actions="actions" 
+          :primary-key="props.rowData[primaryKey]"
+          @delete="refreshDataGrid"
+        >
+        </data-grid-actions>
+      </template>
     </vuetable>
     
     <pagination-info 
       ref="paginationInfo"
       :css="css.pagination"
       info-class="pull-left"
-      info-template="Exibindo {from} até {to} de {total} itens"
+      info-template="Exibindo de {from} até {to} de {total} itens"
     >
     </pagination-info>
     
@@ -35,14 +47,18 @@ import axios from 'axios'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+import DataGridActions from './DataGridActions'
+import DataGridFilter from './DataGridFilter'
 
 export default {
   components: {
     vuetable: Vuetable,
     pagination: VuetablePagination,
-    paginationInfo: VuetablePaginationInfo
+    paginationInfo: VuetablePaginationInfo,
+    dataGridActions: DataGridActions,
+    dataGridFilter: DataGridFilter
   },
-  props: ['url', 'userFields', 'userFilters'],
+  props: ['url', 'userFields', 'userFilters', 'dataCss', 'titleCss', 'actions', 'primaryKey'],
   data () {
     return {
       fields: [],
@@ -74,14 +90,38 @@ export default {
     assocUserFields () {
       const userFields = this.userFields
 
-      for (let prop in userFields) {
+      for (let field in userFields) {
         
         this.fields.push({
-          name: prop,
-          title: userFields[prop]
+          name: field,
+          title: userFields[field],
+          dataClass: this.getDataClass(field),
+          titleClass: this.getFieldClass(field)
         })
 
       }
+
+      this.fields.push({
+        name: '__slot:actions',
+        title: '#',
+        dataClass: 'data-grid-actions'
+      })
+    },
+
+    getDataClass (field) {
+      if (this.dataCss) {
+        return dataCss[field]
+      }
+
+      return ''
+    },
+
+    getFieldClass (field) {
+      if (this.titleCss) {
+        return this.titleCss[field]
+      }
+
+      return ''
     },
 
     assocUserFilters () {
@@ -95,6 +135,11 @@ export default {
 
     onChangePage (page) {
       this.$refs.vuetable.changePage(page)
+    },
+
+    refreshDataGrid () {
+      this.$refs.vuetable.refresh();
+      toastr.success('Your register was deleted with success', 'All done!')
     }
   },
   created () {

@@ -1,5 +1,15 @@
 @extends('master.master')
 
+@section('css')
+@parent
+
+<style>
+    .data-grid-actions {
+        width: 15%;
+    }
+</style>
+@stop
+
 @section('content')
 <!-- <action
         action="users/create"
@@ -15,8 +25,10 @@
     <div class="panel-body">
         <data-grid 
             url="{{url(baseUrl('/users/list'))}}"
+            primary-key="usr_id"
             :user-fields="{usr_name: 'User', usr_email: 'E-mail', usr_username: 'Username', usr_enabled: 'Status'}"
-            :user-filters="{usr_name: 'text', usr_enabled: 'select'}"
+            :user-filters="{usr_name: {type: 'text', title: 'User'}, usr_enabled: {type: 'select', title: 'Status', options: {1: 'Enabled', 0: 'Disabled'}}}"
+            :actions="[{method: 'edit', url: 'users/edit'}, {method: 'delete', url: 'users/delete'}, {method: 'details', url: 'users/details'}]"
         >
         </data-grid>
     </div>

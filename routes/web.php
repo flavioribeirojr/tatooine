@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/', function () {
+    return redirect(config('app.base_route') .'/'. config('app.home'));
+});
+
 Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')], function () {
     Route::get('/home', function () {
         return view('home.home');

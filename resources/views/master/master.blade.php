@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/dist/css/skins/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/dist/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/build/toastr.min.css') }}">
 
     <style>
         @font-face {
@@ -53,6 +55,8 @@
     <script src="{{ asset('plugins/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('theme/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('plugins/toastr/build/toastr.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
 </body>

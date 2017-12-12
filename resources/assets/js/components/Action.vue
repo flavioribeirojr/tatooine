@@ -1,18 +1,28 @@
 <template>
-  <a 
-    v-if="showAction"
-    :href="getUrl()"
-    :class="aclass"
-  >
-    <i v-if="icon" :class="icon"></i>
-    {{message}}
-  </a>
+  <div>
+    <a 
+      v-if="showAction && type == 'anchor'"
+      :href="getUrl()"
+      :class="aclass"
+    >
+      <i v-if="icon" :class="icon"></i>
+      <slot></slot>
+    </a>
+    <button
+      v-if="showAction && type == 'button'"
+      :class="aclass"
+      @click="btnClicked"
+    >
+      <i v-if="icon" :class="icon"></i>
+      <slot></slot>
+    </button>
+  </div>
 </template>
 
 <script>
 
 export default {
-  props: ['action', 'aclass', 'icon', 'message'],
+  props: ['action', 'aclass', 'icon', 'type'],
   data () {
     return {
       showAction: false
@@ -20,7 +30,7 @@ export default {
   },
   methods: {
     getUrl () {
-      return `${this.$baseUrl}/${this.action}`
+      return `/${this.$baseUrl}/${this.action}`
     },
 
     hasPermission () {
@@ -57,6 +67,10 @@ export default {
       if (!this.isArray(urlArray)) return false
 
       return urlArray[1]
+    },
+
+    btnClicked () {
+      this.$emit('btn-clicked')
     }
   },
   mounted () {

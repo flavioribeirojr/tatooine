@@ -20,9 +20,11 @@ mix.copy('node_modules/font-awesome/', 'public/plugins/font-awesome/', false)
 mix.copy('node_modules/admin-lte/', 'public/theme/', false)
 
 //JS PLUGINS
-mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false);
+mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false)
+mix.copy('node_modules/sweetalert2/', 'public/plugins/sweetalert2/', false)
+mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false)
 
-//APPLICATION JS
+/** APPLICATION JS */
 
 //Login page
 mix.js('resources/assets/js/components/Login/index.js', 'public/js/pages/login')

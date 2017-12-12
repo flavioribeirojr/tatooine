@@ -45,7 +45,7 @@ class Repository
             return $paginatedData;
         }
 
-        $fields = array_keys($paginatedData->getCollection()->first()->toArray());
+        $fields = $this->model->attributesToArray();
         
         $paginatedData->getCollection()->transform(function ($data) use ($fields) {
             return $this->applyModifiers($data, $fields);
