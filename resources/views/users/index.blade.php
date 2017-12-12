@@ -28,7 +28,7 @@
     </div>
     <div class="panel-body">
         <data-grid 
-            url="{{url(baseUrl('/users/list'))}}"
+            url="{{baseUrl('/users/list')}}"
             primary-key="usr_id"
             :user-fields="{usr_name: 'User', usr_email: 'E-mail', usr_username: 'Username', usr_enabled: 'Status'}"
             :user-filters="{

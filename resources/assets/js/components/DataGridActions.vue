@@ -12,7 +12,7 @@
       v-for="(action, index) in actions"
       class="btn-grid"
       :key="index"
-      :action="action.url"
+      :action="action.url + '/' + primaryKey"
       :aclass="getClass(action)"
       :icon="getIcon(action)"
       :type="getType(action)"
@@ -24,7 +24,7 @@
 
 
 <script>
-import axios from 'axios'
+import Http from '../axios'
 import Action from './Action'
 
 export default {
@@ -82,7 +82,7 @@ export default {
         .then( (result) => {
           if (!result.value) return
 
-          axios.post(`/${this.$baseUrl}/${url}/${this.primaryKey}`)
+          Http.post(`/${url}/${this.primaryKey}`)
             .then( () => this.$emit('delete') )
 
         })

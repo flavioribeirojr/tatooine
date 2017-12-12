@@ -7,10 +7,11 @@
  */
 function baseUrl(string $complement = '')
 {
-    return config('app.base_route') . $complement;
+    return url('/') . '/' . config('app.base_route') . $complement;
 }
 
 function home()
 {
-    return url('/') . '/' . baseUrl() . '/' . config('app.home');
+
+    return baseUrl() . '/' . config('app.home');
 }

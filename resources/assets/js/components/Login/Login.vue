@@ -64,7 +64,7 @@ export default {
         axios.get(`${this.baseUrl}/${this.$url}/users/permissions`)
           .then((serverResponse) => {
             this.saveUserPermissions(serverResponse.data.permissions)
-
+            
             window.location.replace(this.redirectUrl)
           })
       },
