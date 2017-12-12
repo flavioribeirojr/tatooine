@@ -40,6 +40,11 @@
         .page-title {
             margin-top: 0;
         }
+
+        .btn-create {
+            float: right;
+            display: inline-block;
+        }
     </style>
 
     @yield('css')

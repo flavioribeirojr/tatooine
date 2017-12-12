@@ -27,13 +27,17 @@ class Repository
         $searchableColumns = $this->model->getFilterColumns();
         $filters = array_only($filters, array_keys($searchableColumns));
 
-        $data = $this->model;
+        $filters = array_where($filters, function ($value) {
+            return !is_null($value) || !empty($value);
+        });
 
+        $data = $this->model;
+        
         foreach ($filters as $column => $value) {
             $op = $searchableColumns[$column];
-            $value = is_null($value) ? '' : $value;
-
-            $data->where($column, $op, $value);
+            $value = $op == 'like' ? "%$value%" : $value;
+            
+            $data = $data->where($column, $op, $value);
         }
 
         return $this->formatData($data->paginate(config('custom.datagrid.page_size')));

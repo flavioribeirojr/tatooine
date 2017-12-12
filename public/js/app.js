@@ -45450,6 +45450,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    getByFilter: function getByFilter(data) {
+      var _this = this;
+
+      this.filters[data.name] = data.value;
+
+      Vue.nextTick(function () {
+        return _this.$refs.vuetable.refresh();
+      });
+    },
     assocUserFields: function assocUserFields() {
       var userFields = this.userFields;
 
@@ -45484,10 +45493,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return '';
     },
     assocUserFilters: function assocUserFilters() {
-      var _this = this;
+      var _this2 = this;
 
       Object.keys(this.userFilters).map(function (filter) {
-        return _this.$set(_this.filters, filter, '');
+        _this2.$set(_this2.filters, filter, '');
+
+        _this2.userFilters[filter].title = _this2.userFields[filter];
       });
     },
     onPaginationData: function onPaginationData(paginationData) {
@@ -49186,16 +49197,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['filters'],
+
+  data: function data() {
+    return {
+      gridFilters: this.filters
+    };
+  },
+
 
   methods: {
     isInput: function isInput(type) {
       return ['text', 'number'].indexOf(type) != -1;
     },
     emitFilterValue: function emitFilterValue(e) {
-      console.log({ name: e.target.name, value: e.target.value });
       this.$emit('filter', { name: e.target.name, value: e.target.value });
     }
   }
@@ -49211,43 +49230,47 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.filters, function(filter, index) {
-      return _c("div", { key: index, staticClass: "col-md-3" }, [
-        _vm.isInput(filter.type)
-          ? _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", name: index, placeholder: filter.title },
-              on: { keyup: _vm.emitFilterValue }
-            })
-          : _vm._e(),
-        _vm._v(" "),
-        filter.type == "select"
-          ? _c(
-              "select",
-              {
+    _vm._l(_vm.gridFilters, function(filter, index) {
+      return _c(
+        "div",
+        { key: index, class: "form-group col-md-" + filter.size },
+        [
+          _c("label", { staticClass: "label-control", attrs: { for: index } }, [
+            _vm._v(_vm._s(filter.title))
+          ]),
+          _vm._v(" "),
+          _vm.isInput(filter.type)
+            ? _c("input", {
                 staticClass: "form-control",
-                attrs: { name: index },
-                on: { change: _vm.emitFilterValue }
-              },
-              [
-                _c(
-                  "option",
-                  { attrs: { selected: "", hidden: "", disabled: "" } },
-                  [_vm._v(_vm._s(filter.title))]
-                ),
-                _vm._v(" "),
-                _vm._l(filter.options, function(option, index) {
-                  return _c(
-                    "option",
-                    { key: index, domProps: { value: index } },
-                    [_vm._v(_vm._s(option))]
-                  )
-                })
-              ],
-              2
-            )
-          : _vm._e()
-      ])
+                attrs: { type: "text", name: index, placeholder: filter.title },
+                on: { keyup: _vm.emitFilterValue }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          filter.type == "select"
+            ? _c(
+                "select",
+                {
+                  staticClass: "form-control",
+                  attrs: { name: index },
+                  on: { change: _vm.emitFilterValue }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
+                  _vm._v(" "),
+                  _vm._l(filter.options, function(option, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index } },
+                      [_vm._v(_vm._s(option))]
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e()
+        ]
+      )
     })
   )
 }
@@ -49275,7 +49298,12 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        [_c("data-grid-filter", { attrs: { filters: _vm.userFilters } })],
+        [
+          _c("data-grid-filter", {
+            attrs: { filters: _vm.userFilters },
+            on: { filter: _vm.getByFilter }
+          })
+        ],
         1
       ),
       _vm._v(" "),

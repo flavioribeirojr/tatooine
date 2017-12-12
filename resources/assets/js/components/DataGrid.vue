@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="row">
-      <data-grid-filter :filters="userFilters"></data-grid-filter>
+      <data-grid-filter :filters="userFilters" @filter="getByFilter"></data-grid-filter>
     </div>
     <vuetable
       ref="vuetable"
@@ -87,6 +87,12 @@ export default {
     }
   },
   methods: {
+    getByFilter (data) {
+      this.filters[data.name] = data.value;
+
+      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+    },
+
     assocUserFields () {
       const userFields = this.userFields
 
@@ -125,7 +131,12 @@ export default {
     },
 
     assocUserFilters () {
-      Object.keys(this.userFilters).map(filter => this.$set(this.filters, filter, '') )
+      Object.keys(this.userFilters).map(filter => {
+        this.$set(this.filters, filter, '')
+
+        this.userFilters[filter].title = this.userFields[filter]
+      })
+      
     },
 
     onPaginationData (paginationData) {
