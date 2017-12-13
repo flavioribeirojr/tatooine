@@ -4,7 +4,7 @@ Start point for newer projects.
 * Authorization implemented with Laravel Auth
 * Security schema for management of user and their permissions
 * Some cool reusable Vue components, such as a Datagrid and Action (buttons and anchors)
-* Custom Menu for each user profile
+* Custom Menu for each user
 * Controller to show/hide buttons and anchors(with Action component)
 
 # Build
@@ -36,6 +36,8 @@ $this->createNewResource(['users' => 'User management'], [
 
 > **Note**: Tatooine only accept routes in the `resource/permission/{parameters}` format.
 
+> **Note**: You can change the method description, Tatooine will update it info. You can also delete a permission, just remove it from the permissions `array`.
+
 To run the seeder you can use the command:
 `$ php artisan resource:run`
 
@@ -50,7 +52,7 @@ Now Tatooine knows how to map your routes.
 
 ### Helper functions
 There is a `Helper` class (in app/Helper.php) where are two useful global methods
-* **baseUrl**: Retrieves your full application full url with your `base_route`(Ex.: `yoursystem.com/tatooine`). This function have an optional parameters `$complement`, wich can be used to complement your base route
+* **baseUrl**: Retrieves your application full url with your `base_route`(Ex.: `yoursystem.com/tatooine`). This function have an optional parameter `$complement`, wich can be used to complement your base route
 (Ex.: `yoursystem.com/tatooine/users/create`)
 
 * **home**: Simple function to return the full path of your custom home route
@@ -66,8 +68,10 @@ Tatooine comes with three super classes: Model, Repository and Request. The appl
   ]
   ```
  * **Request**: Simple extend it and define rules() method, more details on the laravel documentation: https://laravel.com/docs/5.5/validation#form-request-validation
- * **Repository**: Accepts an Model instance. Has one public method, listModel([]). You may use it for retrieve paginated and filtered data. You can call any other `Eloquent\Model` method, the Repository class will pass your call to it Model instance (unless a method with the same name is defined in it)
-  > **Tip**: Use the `listModel` method in combination with DataGrid component(described bellow)
+ * **Repository**: Accepts an Model instance. Has one public method, listModel([]). You may use it for retrieve paginated and filtered data. You can call any other `Eloquent\Model` method, the Repository class will pass the call to its Model instance (unless a method with the same name is defined in it)
+  > **Tip 1**: Use the `listModel` method in combination with DataGrid component(described bellow)
+For default, the `listModel` method will simply return the data from the database. But there are cases when you want to apply modifiers based on values, or any other transformation. Like in Eloquent Mutators(see: https://laravel.com/docs/5.5/eloquent-mutators#defining-an-accessor) you can define modifiers in your Models, you just need to name it like in the pattern: `getYourColumnList`. You have to use the `camelCase` style (Ex.: usr_name: UsrName).
+  > **Note**: This method will not be executed when you access an attribute directly, only if you call it
 
 ### Available Vue components
 Tatooine comes shipped with two reusable components, Action and DataGrid.
