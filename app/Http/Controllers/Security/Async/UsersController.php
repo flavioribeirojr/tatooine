@@ -21,7 +21,7 @@ class UsersController extends Controller
         
         $userPermissions = $this->userRepository->getUserPermissions($user);
         
-        return response(['permissions' => $userPermissions], 200);
+        return response($userPermissions, 200);
     }
 
     public function getUsers(Request $request)

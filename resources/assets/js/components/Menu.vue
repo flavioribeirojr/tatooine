@@ -2,19 +2,17 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENU</li>
 
-        <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-        <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+        <li v-for="(resources, category) in userMenu" :key="category" class="treeview">
+          <a href="#"><i class="fa fa-link"></i><span>{{category}}</span>
             <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
-        </ul>
+          </a>
+          <ul class="treeview-menu">
+            <li v-for="(resource, index) in resources" :key="index">
+              <a :href="Object.keys(resource)[0]">{{Object.values(resource)[0]}}</a>
+            </li>
+          </ul>
         </li>
     </ul>
 </template>
@@ -23,13 +21,13 @@
 export default {
   data () {
     return {
-      userPermissions: {},
+      userMenu: {},
       routerActive: ''
     }
   },
 
   created () {
-    this.userPermissions = JSON.parse(localStorage.permissions)
+    this.userMenu = JSON.parse(localStorage.menu)
   }
 }
 </script>

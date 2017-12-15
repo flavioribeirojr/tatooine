@@ -63,20 +63,28 @@ export default {
       mountUserPermissions() {
         axios.get(`${this.baseUrl}/${this.$url}/users/permissions`)
           .then((serverResponse) => {
-            this.saveUserPermissions(serverResponse.data.permissions)
+            this.saveUserPermissions(serverResponse.data)
             
             window.location.replace(this.redirectUrl)
           })
       },
 
-      saveUserPermissions (permissions) {
-        const userPermissions = JSON.stringify(permissions)
-
+      saveUserPermissions (userInfo) {
+        const userPermissions = JSON.stringify(userInfo.permissions)
+        const userMenu = JSON.stringify(userInfo.menu)
+        
         Object.defineProperty(localStorage, 'permissions', {
           enumerable: false,
           configurable: false,
           writable: false,
           value: userPermissions
+        })
+
+        Object.defineProperty(localStorage, 'menu', {
+          enumerable: false,
+          configurable: false,
+          writable: false,
+          value: userMenu
         })
       }
   },

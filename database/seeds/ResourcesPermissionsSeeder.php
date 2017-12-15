@@ -17,7 +17,7 @@ class ResourcesPermissionsSeeder extends Seeder
         $securityCategory = $this->getResourceCategory('security', 'Security');
 
         //USER RESOURCE
-        $this->createNewResource(['users' => 'Gerenciamento de usuários'], [
+        $this->createNewResource(['users' => 'Usuários'], [
             'index'   => 'Listagem de usuários', 
             'create'  => 'Cadastrar usuário', 
             'edit'    => 'Editar usuário', 
@@ -26,7 +26,7 @@ class ResourcesPermissionsSeeder extends Seeder
         ], $securityCategory);
         
         //PROFILE RESOURCE
-        $this->createNewResource(['profiles' => 'Gerenciamento de perfis'], [
+        $this->createNewResource(['profiles' => 'Perfis'], [
             'index'   => 'Listagem de perfis', 
             'create'  => 'Cadastrar perfil', 
             'edit'    => 'Editar perfil', 

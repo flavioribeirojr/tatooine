@@ -45,11 +45,7 @@ class Repository
 
     private function formatData($paginatedData)
     {
-        if (!$paginatedData->getCollection()->count()) {
-            return $paginatedData;
-        }
-
-        $fields = $this->model->attributesToArray();
+        $fields = $this->getFillable();
         
         $paginatedData->getCollection()->transform(function ($data) use ($fields) {
             return $this->applyModifiers($data, $fields);

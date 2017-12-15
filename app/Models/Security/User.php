@@ -21,8 +21,7 @@ class User extends Authenticatable
         'usr_email', 
         'usr_password',
         'usr_name',
-        'usr_enabled',
-        'usr_remember_token'
+        'usr_enabled'
     ];
 
     /**
@@ -31,7 +30,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'usr_password'
+        'usr_password',
+        'usr_remember_token'
     ];
 
     protected $filterColumns = [
@@ -50,9 +50,19 @@ class User extends Authenticatable
         return $this->usr_password;
     }
 
-    public function getRememberTokenAttribute($value)
+    public function getRememberTokenName()
     {
-        return $this->usr_remember_token;
+        return null; // not supported
+    }
+
+    public function setAttribute($key, $value)
+    {
+        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+        
+        if (!$isRememberTokenAttribute)
+        {
+          parent::setAttribute($key, $value);
+        }
     }
 
     public function getFilterColumns()

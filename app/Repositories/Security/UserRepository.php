@@ -32,11 +32,21 @@ class UserRepository extends Repository
     public function getUserPermissions(User $user)
     {
         $permissions = $user->profiles->load('permissions')->pluck('permissions')->unique('prm_method')->collapse();
+
+        $userPermisions = [];
+        $userMenu = [];
         
-        return $permissions->groupBy('prm_rsc_id')->map(function ($permissionByResource) {
-            $resource = $permissionByResource->first()->resource->rsc_name;
+        $permissions->groupBy('prm_rsc_id')->map(function ($permissionByResource) use (&$userPermisions, &$userMenu) {
+            $resource = $permissionByResource->first()->resource;
+            $category = $resource->category;
+
+            $userPermisions[$resource->rsc_name] = $permissionByResource->pluck('prm_method')->toArray();
             
-            return [$resource => $permissionByResource->pluck('prm_method')->toArray()];
-        })->collapse()->toArray();
+            $userMenu[$category->rct_name][] = [
+                $resource->rsc_name => $resource->rsc_description
+            ];
+        });
+
+        return ['permissions' => $userPermisions, 'menu' => $userMenu];
     }
 }

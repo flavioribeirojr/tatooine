@@ -13,6 +13,7 @@ Vue.prototype.$baseUrl = process.env.MIX_BASE_ROUTE
 
 Vue.component('action', require('./components/Action.vue'))
 Vue.component('data-grid', require('./components/DataGrid.vue'))
+Vue.component('t-menu', require('./components/Menu.vue'))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -21,5 +22,12 @@ Vue.component('data-grid', require('./components/DataGrid.vue'))
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    methods: {
+        logout (url) {
+            localStorage.clear()
+
+            window.location.replace(url)            
+        }
+    }
 });

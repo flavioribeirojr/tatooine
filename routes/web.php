@@ -34,4 +34,4 @@ Route::get('/login', function () {
 });
 
 Route::post('/login', 'Security\LoginController@login');
-Route::post('/logout', 'Security\LoginController@logout');
+Route::get('/logout', 'Security\LoginController@logout');

@@ -38,6 +38,7 @@ export default {
       if (! ('permissions' in localStorage) ) return false
 
       const userPermissions = JSON.parse(localStorage.permissions)
+      
       const urlArray = this.action.split('/')
       
       const resource = this.getResourceFromUrl(urlArray)
