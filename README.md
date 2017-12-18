@@ -136,10 +136,12 @@ DataGrid props:
   ``` js
     options: {1: 'Option one', 2: 'Option 2'}
   ```
-* **mutators**: To change how data is going to be visualized you can apply the mutators, just a simple key-value mechanism, you pass the value and the corresponding information to show. Like in the pattern: `{usr_enabled: {0: 'Disabled', 1: 'Enabled'}}`
+  
   > **Note 1**: The object key is used as the filter value
   
   > **Note 2**: This filter feature will be improved to allow other input types(such as 'checkbox' and 'radio
+  
+* **mutators**: To change how data is going to be visualized you can apply the mutators, just a simple key-value mechanism, you pass the value and the corresponding information to show. Like in the pattern: `{usr_enabled: {0: 'Disabled', 1: 'Enabled'}}`
   
 
   
