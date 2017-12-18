@@ -45491,9 +45491,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     applyMutator: function applyMutator(options) {
       return function (value) {
-        for (var val in options) {
-          if (value == val) return options[val];
-        }
+        return options[value];
       };
     },
     getDataClass: function getDataClass(field) {

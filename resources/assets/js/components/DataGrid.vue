@@ -120,9 +120,7 @@ export default {
 
     applyMutator (options) {
       return function (value) {
-        for (let val in options) {
-          if (value == val) return options[val]
-        }
+        return options[value];
       }
     },
 

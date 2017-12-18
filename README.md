@@ -70,15 +70,6 @@ Tatooine comes with three super classes: Model, Repository and Request. The appl
  * **Request**: Simple extend it and define rules() method, more details on the laravel documentation: https://laravel.com/docs/5.5/validation#form-request-validation
  * **Repository**: Accepts an Model instance. Has one public method, listModel([]). You may use it for retrieve paginated and filtered data. You can call any other `Eloquent\Model` method, the Repository class will pass the call to its Model instance (unless a method with the same name is defined in it)
    - **Tip**: Use the `listModel` method in combination with DataGrid component(described bellow).
-   - **List model**: For default, the `listModel` method will simply return the data from the database. But there are cases when you want to apply modifiers based on values, or any other transformation. Like in Eloquent Mutators(see: https://laravel.com/docs/5.5/eloquent-mutators#defining-an-accessor) you can define modifiers in your Models, you just need to name it like in the pattern: 
-   ```php 
-      public function getYourColumnList($value) {
-         //
-      }
-   ``` 
-   You have to use the `camelCase` style (Ex.: usr_name: UsrName).
-  
-  > **Note**: This method will not be executed when you access an attribute directly, only if you call it
 
 ### Available Vue components
 Tatooine comes shipped with two reusable components, Action and DataGrid.
@@ -133,6 +124,7 @@ This component renders a paginated grid, with filter options. Also, you can defi
     {method: 'delete', url: 'users/delete'}, 
     {method: 'details', url: 'users/details'}
   ]"
+  :mutators="{usr_enabled: {0: 'Disabled', 1: 'Enabled'}}"
 ></data-grid>
 ```
 DataGrid props:
@@ -144,6 +136,7 @@ DataGrid props:
   ``` js
     options: {1: 'Option one', 2: 'Option 2'}
   ```
+* **mutators**: To change how data is going to be visualized you can apply the mutators, just a simple key-value mechanism, you pass the value and the corresponding information to show. Like in the pattern: `{usr_enabled: {0: 'Disabled', 1: 'Enabled'}}`
   > **Note 1**: The object key is used as the filter value
   
   > **Note 2**: This filter feature will be improved to allow other input types(such as 'checkbox' and 'radio
