@@ -67,7 +67,7 @@ class ProfilesController extends Controller
             
             $this->profileRepository->update($profile->prf_id, $data);
 
-            return redirect(baseUrl('/users'))->with('message', 'Perfil atualizado com sucesso');
+            return redirect(baseUrl('/profiles'))->with('message', 'Perfil atualizado com sucesso');
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 throw $e;
