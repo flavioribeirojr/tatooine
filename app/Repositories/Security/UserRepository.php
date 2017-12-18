@@ -22,7 +22,7 @@ class UserRepository extends Repository
 
     public function logUserIn(array $data)
     {
-        $user = $this->where('usr_email', $data['usr_email'])->first();
+        $user = $this->where('usr_username', $data['usr_username'])->first();
 
         if (!$user) {
             return false;

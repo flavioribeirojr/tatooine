@@ -2,12 +2,12 @@
     <form @submit.prevent="loginUser">
         <div class="form-group has-feedback" :class="{'has-error': errors.has('usr_email')}">
             <input 
-                type="email" 
-                name="usr_email" 
+                type="text" 
+                name="usr_username" 
                 class="form-control" 
-                placeholder="Email"
-                v-model="usr_email"
-                v-validate="'required|email'"
+                placeholder="Nome de usuário"
+                v-model="usr_username"
+                v-validate="'required'"
             />
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             <span v-if="errors.has('usr_email')" class="help-block">{{ errors.first('usr_email') }}</span>
@@ -38,7 +38,7 @@ import axios from 'axios';
 export default {
   data () {
       return {
-        usr_email: '',
+        usr_username: '',
         usr_password: '',
         loginError: false
       }
@@ -50,7 +50,7 @@ export default {
           if (!pass) return;
 
           axios.post(`${this.baseUrl}/login`, {
-            usr_email: this.usr_email, 
+            usr_username: this.usr_username, 
             usr_password: this.usr_password
           })
           .then( () => {

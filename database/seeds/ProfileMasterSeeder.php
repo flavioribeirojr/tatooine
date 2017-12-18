@@ -9,7 +9,8 @@ class ProfileMasterSeeder extends Seeder
     public function run()
     {
         $master = Profile::create([
-            'prf_name' => 'master'
+            'prf_name'        => 'master',
+            'prf_description' => 'Admin profile'
         ]);
 
         $admin = User::where('usr_username', 'admin')->first();

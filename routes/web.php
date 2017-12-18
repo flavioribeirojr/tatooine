@@ -32,6 +32,17 @@ Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')],
         Route::get('/list', 'Async\UsersController@getUsers');
         Route::get('/permissions', 'Async\UsersController@getUserPermissions');
     });
+
+    Route::group(['prefix' => 'profiles', 'namespace' => 'Security'], function () {
+        Route::get('/', 'ProfilesController@index');
+        Route::get('/create', 'ProfilesController@create');
+        Route::post('/store', 'ProfilesController@store');
+        Route::get('/edit/{prfId}', 'ProfilesController@edit');
+        Route::put('/update/{prfId}', 'ProfilesController@update');
+        Route::delete('/delete/{prfId}', 'ProfilesController@delete');
+
+        Route::get('/list', 'Async\ProfilesController@getProfiles');
+    });
 });
 
 Route::get('/login', function () {

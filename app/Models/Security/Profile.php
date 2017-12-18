@@ -8,7 +8,11 @@ class Profile extends Model
 {
     protected $primaryKey = 'prf_id';
 
-    protected $fillable = ['prf_name'];
+    protected $fillable = ['prf_name', 'prf_description'];
+
+    protected $filterColumns = [
+        'prf_name' => 'like',
+    ];
 
     public function users()
     {
