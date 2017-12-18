@@ -12,6 +12,14 @@ class UserRepository extends Repository
         $this->model = $model;
     }
 
+    public function create(array $data)
+    {
+        $user = $this->fill($data);
+
+        $user->usr_password = bcrypt($data['usr_password']);
+        $user->save();
+    }
+
     public function logUserIn(array $data)
     {
         $user = $this->where('usr_email', $data['usr_email'])->first();

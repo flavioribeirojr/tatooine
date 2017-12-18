@@ -57,7 +57,7 @@ export default {
     dataGridActions: DataGridActions,
     dataGridFilter: DataGridFilter
   },
-  props: ['url', 'userFields', 'userFilters', 'dataCss', 'titleCss', 'actions', 'primaryKey'],
+  props: ['url', 'userFields', 'userFilters', 'dataCss', 'titleCss', 'actions', 'primaryKey', 'mutators'],
   data () {
     return {
       fields: [],
@@ -96,13 +96,18 @@ export default {
       const userFields = this.userFields
 
       for (let field in userFields) {
-        
-        this.fields.push({
+        let fieldInfo = {
           name: field,
           title: userFields[field],
           dataClass: this.getDataClass(field),
           titleClass: this.getFieldClass(field)
-        })
+        }
+
+        if (this.mutators && field in this.mutators) {
+          fieldInfo.callback = this.applyMutator(this.mutators[field])
+        }
+        
+        this.fields.push(fieldInfo)
 
       }
 
@@ -111,6 +116,14 @@ export default {
         title: '#',
         dataClass: 'data-grid-actions'
       })
+    },
+
+    applyMutator (options) {
+      return function (value) {
+        for (let val in options) {
+          if (value == val) return options[val]
+        }
+      }
     },
 
     getDataClass (field) {

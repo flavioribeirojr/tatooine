@@ -18,8 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'usr_username', 
-        'usr_email', 
-        'usr_password',
+        'usr_email',
         'usr_name',
         'usr_enabled'
     ];
@@ -52,7 +51,7 @@ class User extends Authenticatable
 
     public function getRememberTokenName()
     {
-        return null; // not supported
+        return null;
     }
 
     public function setAttribute($key, $value)
@@ -68,10 +67,5 @@ class User extends Authenticatable
     public function getFilterColumns()
     {
         return $this->filterColumns;
-    }
-
-    public function getUsrEnabledList($value)
-    {
-        return $value == 0 ? 'Disabled' : 'Enabled';
     }
 }

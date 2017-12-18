@@ -40,43 +40,11 @@ class Repository
             $data = $data->where($column, $op, $value);
         }
 
-        return $this->formatData($data->paginate(config('custom.datagrid.page_size')));
+        return $data->paginate(config('custom.datagrid.page_size'));
     }
 
-    private function formatData($paginatedData)
+    public function update($modelId, $data)
     {
-        $fields = $this->getFillable();
-        
-        $paginatedData->getCollection()->transform(function ($data) use ($fields) {
-            return $this->applyModifiers($data, $fields);
-        });
-
-        return $paginatedData;
-    }
-
-    private function applyModifiers($data, array $fields)
-    {
-        foreach ($fields as $field) {
-            $listModifier = $this->convertAttributeToMethod($field);
-
-            if (method_exists($this->model, $listModifier)) {
-                $data->$field = call_user_func_array(array($this->model, $listModifier), array($data->$field));
-            }
-        }
-
-        return $data;
-    }
-
-    private function convertAttributeToMethod($attr)
-    {
-        $names = explode('_', $attr);
-        
-        array_walk($names, function (&$name) {
-            $name = ucfirst($name); 
-        });
-        
-        $method = 'get' . implode('', $names) . 'List';
-        
-        return $method;
+        return $this->find($modelId)->update($data);
     }
 }

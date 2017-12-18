@@ -70,6 +70,20 @@
     <script src="{{ asset('plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('plugins/toastr/build/toastr.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    
+    <script type="text/javascript">
+        @if(session('message'))
+            toastr.success("{{session('message')}}", 'Sucesso!')
+        @endif
+
+        @if($errors->has('error'))
+            toastr.warning("{{$errors->first('error')}}", 'Erro!')
+        @endif
+
+        @if($errors->has('exception'))
+            toastr.error("{{$errors->first('exception')}}", 'Erro!')
+        @endif
+    </script>
     @yield('js')
 </body>
 </html>

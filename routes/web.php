@@ -23,6 +23,11 @@ Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')],
     
     Route::group(['prefix' => 'users', 'namespace' => 'Security'], function () {
         Route::get('/', 'UsersController@index');
+        Route::get('/create', 'UsersController@create');
+        Route::post('/store', 'UsersController@store');
+        Route::get('/edit/{usrId}', 'UsersController@edit');
+        Route::put('/update/{usrId}', 'UsersController@update');
+        Route::delete('/delete/{usrId}', 'UsersController@delete');
 
         Route::get('/list', 'Async\UsersController@getUsers');
         Route::get('/permissions', 'Async\UsersController@getUserPermissions');

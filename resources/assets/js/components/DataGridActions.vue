@@ -82,7 +82,7 @@ export default {
         .then( (result) => {
           if (!result.value) return
 
-          Http.post(`/${url}/${this.primaryKey}`)
+          Http.delete(`/${url}/${this.primaryKey}`)
             .then( () => this.$emit('delete') )
 
         })

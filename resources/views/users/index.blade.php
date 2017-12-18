@@ -26,7 +26,7 @@
             Criar novo usuário
         </action>
     </div>
-    <div class="panel-body">
+    <div class="box-body">
         <data-grid 
             url="{{baseUrl('/users/list')}}"
             primary-key="usr_id"
@@ -35,6 +35,7 @@
                 usr_name: {type: 'text', size: 4}, 
                 usr_enabled: {type: 'select', size: 3, options: {1: 'Enabled', 0: 'Disabled'}}
             }"
+            :mutators="{usr_enabled: {0: 'Cancelado', 1: 'Ativo'} }"
             :actions="[{method: 'edit', url: 'users/edit'}, {method: 'delete', url: 'users/delete'}, {method: 'details', url: 'users/details'}]"
         >
         </data-grid>

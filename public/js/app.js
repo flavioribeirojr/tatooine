@@ -45426,7 +45426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     dataGridActions: __WEBPACK_IMPORTED_MODULE_3__DataGridActions___default.a,
     dataGridFilter: __WEBPACK_IMPORTED_MODULE_4__DataGridFilter___default.a
   },
-  props: ['url', 'userFields', 'userFilters', 'dataCss', 'titleCss', 'actions', 'primaryKey'],
+  props: ['url', 'userFields', 'userFilters', 'dataCss', 'titleCss', 'actions', 'primaryKey', 'mutators'],
   data: function data() {
     return {
       fields: [],
@@ -45469,13 +45469,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var userFields = this.userFields;
 
       for (var field in userFields) {
-
-        this.fields.push({
+        var fieldInfo = {
           name: field,
           title: userFields[field],
           dataClass: this.getDataClass(field),
           titleClass: this.getFieldClass(field)
-        });
+        };
+
+        if (this.mutators && field in this.mutators) {
+          fieldInfo.callback = this.applyMutator(this.mutators[field]);
+        }
+
+        this.fields.push(fieldInfo);
       }
 
       this.fields.push({
@@ -45483,6 +45488,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '#',
         dataClass: 'data-grid-actions'
       });
+    },
+    applyMutator: function applyMutator(options) {
+      return function (value) {
+        for (var val in options) {
+          if (value == val) return options[val];
+        }
+      };
     },
     getDataClass: function getDataClass(field) {
       if (this.dataCss) {
@@ -49087,7 +49099,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }).then(function (result) {
           if (!result.value) return;
 
-          __WEBPACK_IMPORTED_MODULE_0__axios__["a" /* default */].post('/' + url + '/' + _this.primaryKey).then(function () {
+          __WEBPACK_IMPORTED_MODULE_0__axios__["a" /* default */].delete('/' + url + '/' + _this.primaryKey).then(function () {
             return _this.$emit('delete');
           });
         });
