@@ -28,9 +28,12 @@ Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')],
         Route::get('/edit/{usrId}', 'UsersController@edit');
         Route::put('/update/{usrId}', 'UsersController@update');
         Route::delete('/delete/{usrId}', 'UsersController@delete');
+        Route::get('/details/{usrId}', 'UsersController@details');
 
         Route::get('/list', 'Async\UsersController@getUsers');
         Route::get('/permissions', 'Async\UsersController@getUserPermissions');
+        Route::post('/setprofile', 'Async\UsersController@setUserProfile');
+        Route::post('/unsetprofile', 'Async\UsersController@unsetUserProfile');
     });
 
     Route::group(['prefix' => 'profiles', 'namespace' => 'Security'], function () {

@@ -4,12 +4,18 @@ namespace App\Repositories\Security;
 
 use Core\Repository;
 use App\Models\Security\User;
+use App\Repositories\Security\ProfileRepository;
 
 class UserRepository extends Repository
 {
-    public function __construct(User $model)
-    {
+    protected $profileRepository;
+
+    public function __construct(
+        User $model, 
+        ProfileRepository $profileRepository
+    ) {
         $this->model = $model;
+        $this->profileRepository = $profileRepository;
     }
 
     public function create(array $data)
@@ -56,5 +62,41 @@ class UserRepository extends Repository
         });
 
         return ['permissions' => $userPermisions, 'menu' => $userMenu];
+    }
+
+    public function setUserProfile($userId, $profileId)
+    {
+        $user = $this->find($userId);
+        $profile = $this->profileRepository->find($profileId);
+
+        if (!$user || !$profile) {
+            return false;
+        }
+
+        if ($user->profiles->where('prf_id', $profileId)->count()) {
+            return true;
+        }
+
+        $user->profiles()->attach($profileId);
+
+        return true;
+    }
+
+    public function unsetUserProfile($userId, $profileId)
+    {
+        $user = $this->find($userId);
+        $profile = $this->profileRepository->find($profileId);
+
+        if (!$user || !$profile) {
+            return false;
+        }
+
+        if (!$user->profiles->where('prf_id', $profileId)->count()) {
+            return true;
+        }
+
+        $user->profiles()->detach($profileId);
+
+        return true;
     }
 }

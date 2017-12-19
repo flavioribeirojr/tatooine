@@ -10,7 +10,7 @@
           </a>
           <ul class="treeview-menu">
             <li v-for="(resource, index) in resources" :key="index">
-              <a :href="Object.keys(resource)[0]">{{Object.values(resource)[0]}}</a>
+              <a :href="getHref(resource)">{{Object.values(resource)[0]}}</a>
             </li>
           </ul>
         </li>
@@ -23,6 +23,12 @@ export default {
     return {
       userMenu: {},
       routerActive: ''
+    }
+  },
+
+  methods: {
+    getHref (resource) {
+      return '/' + this.$baseUrl + '/' + Object.keys(resource)[0]
     }
   },
 

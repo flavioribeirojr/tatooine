@@ -30,4 +30,32 @@ class UsersController extends Controller
 
         return response($data, 200);
     }
+
+    public function setUserProfile(Request $request)
+    {
+        $user = $request->get('user');
+        $profile = $request->get('profile');
+
+        $profileSet = $this->userRepository->setUserProfile($user, $profile);
+
+        if ($profileSet) {
+            return response(['message' => 'User profile successfully setted'], 200);
+        }
+
+        return response(['error' => 'User profile not setted'], 500);
+    }
+
+    public function unsetUserProfile(Request $request)
+    {
+        $user = $request->get('user');
+        $profile = $request->get('profile');
+
+        $profileUnset = $this->userRepository->unsetUserProfile($user, $profile);
+
+        if ($profileUnset) {
+            return response(['message' => 'User profile successfully unsetted'], 200);
+        }
+
+        return response(['error' => 'User profile not unsetted'], 500);   
+    }
 }

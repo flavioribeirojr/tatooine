@@ -49473,6 +49473,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       routerActive: ''
     };
   },
+
+
+  methods: {
+    getHref: function getHref(resource) {
+      return '/' + this.$baseUrl + '/' + Object.keys(resource)[0];
+    }
+  },
+
   created: function created() {
     this.userMenu = JSON.parse(localStorage.menu);
   }
@@ -49506,7 +49514,7 @@ var render = function() {
             { staticClass: "treeview-menu" },
             _vm._l(resources, function(resource, index) {
               return _c("li", { key: index }, [
-                _c("a", { attrs: { href: Object.keys(resource)[0] } }, [
+                _c("a", { attrs: { href: _vm.getHref(resource) } }, [
                   _vm._v(_vm._s(Object.values(resource)[0]))
                 ])
               ])

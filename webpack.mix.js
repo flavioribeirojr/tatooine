@@ -23,6 +23,7 @@ mix.copy('node_modules/admin-lte/', 'public/theme/', false)
 mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false)
 mix.copy('node_modules/sweetalert2/', 'public/plugins/sweetalert2/', false)
 mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false)
+mix.copy('node_modules/axios/', 'public/plugins/axios/', false)
 
 /** APPLICATION JS */
 

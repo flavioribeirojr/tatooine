@@ -6,14 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Security\UserRequest;
 use App\Repositories\Security\UserRepository;
+use App\Repositories\Security\ProfileRepository;
 
 class UsersController extends Controller
 {
     protected $userRepository;
+    protected $profileRepository;
 
-    public function __construct(UserRepository $userRepository)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        ProfileRepository $profileRepository
+    ) {
         $this->userRepository = $userRepository;
+        $this->profileRepository = $profileRepository;
     }
 
     public function index()
@@ -96,5 +101,19 @@ class UsersController extends Controller
 
             return response(['exception' => config('custom.exception')], 500);
         }
+    }
+
+    public function details($userId)
+    {
+        $user = $this->userRepository->find($userId);
+        
+        if (!$user) {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Usuário não existe']);
+        }
+
+        $profiles = $this->profileRepository->all();
+        $userProfiles = $user->profiles->pluck('prf_id')->toArray();
+
+        return view('users.details', compact('user', 'profiles', 'userProfiles'));
     }
 }
