@@ -21,4 +21,25 @@ class ProfilesController extends Controller
         
         return response($data, 200);
     }
+
+    public function setProfilePermissions($prfId, Request $request)
+    {
+        try {
+            $data = $request->get('permissions');
+            
+            $permissionsSetted = $this->profileRepository->setProfilePermissions($prfId, $data);
+    
+            if ($permissionsSetted) {
+                return response(['message' => 'Permissions successfully setted'], 200);
+            }
+    
+            return response(['error' => 'Permissions not setted'], 500);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                throw $e;
+            }
+
+            return response(['exception' => config('custom.exception')], 500);
+        }
+    }
 }

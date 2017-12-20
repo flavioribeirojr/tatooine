@@ -11,4 +11,17 @@ class ProfileRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function setProfilePermissions($profileId, array $permissions)
+    {
+        $profile = $this->find($profileId);
+
+        if (!$profile) {
+            return false;
+        }
+        
+        $profile->permissions()->sync($permissions);
+
+        return true;
+    }
 }

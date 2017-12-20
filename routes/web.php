@@ -43,8 +43,10 @@ Route::group(['middleware' => 'security', 'prefix' => config('app.base_route')],
         Route::get('/edit/{prfId}', 'ProfilesController@edit');
         Route::put('/update/{prfId}', 'ProfilesController@update');
         Route::delete('/delete/{prfId}', 'ProfilesController@delete');
+        Route::get('/details/{prfId}', 'ProfilesController@details');
 
         Route::get('/list', 'Async\ProfilesController@getProfiles');
+        Route::post('/setpermissions/{prfId}', 'Async\ProfilesController@setProfilePermissions');
     });
 });
 

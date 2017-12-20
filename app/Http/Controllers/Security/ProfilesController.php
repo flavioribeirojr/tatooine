@@ -6,14 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Security\ProfileRequest;
 use App\Repositories\Security\ProfileRepository;
+use App\Repositories\Security\PermissionRepository;
 
 class ProfilesController extends Controller
 {
     protected $profileRepository;
+    protected $permissionRepository;
 
-    public function __construct(ProfileRepository $profileRepository)
-    {
+    public function __construct(
+        ProfileRepository $profileRepository,
+        PermissionRepository $permissionRepository
+    ) {
         $this->profileRepository = $profileRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function index()
@@ -96,5 +101,20 @@ class ProfilesController extends Controller
 
             return response(['exception' => config('custom.exception')], 500);
         }
+    }
+
+    public function details($profileId)
+    {
+        $profile = $this->profileRepository->find($profileId);
+
+        if (!$profile) {
+            return redirect()->back()->withErrors(['error' => 'Perfil não existe']);
+        }
+
+        $permissions = $this->permissionRepository->all()->groupBy('prm_rsc_id');
+        
+        $profilePermissions = $profile->permissions;
+        
+        return view('profiles.details', compact('profile', 'permissions', 'profilePermissions'));
     }
 }

@@ -24,6 +24,7 @@ mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false)
 mix.copy('node_modules/sweetalert2/', 'public/plugins/sweetalert2/', false)
 mix.copy('node_modules/toastr/', 'public/plugins/toastr/', false)
 mix.copy('node_modules/axios/', 'public/plugins/axios/', false)
+mix.copy('node_modules/jstree/', 'public/plugins/jstree/', false)
 
 /** APPLICATION JS */
 
