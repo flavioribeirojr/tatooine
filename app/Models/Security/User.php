@@ -60,7 +60,7 @@ class User extends Authenticatable
         
         if (!$isRememberTokenAttribute)
         {
-          parent::setAttribute($key, $value);
+            parent::setAttribute($key, $value);
         }
     }
 

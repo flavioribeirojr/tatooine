@@ -27,7 +27,7 @@
                                     @foreach($permissionByResource as $permission)
                                         <li 
                                             id="prm-{{$permission->prm_id}}" 
-                                            data-jstree='{"icon": "fa fa-shield", @if($profilePermissions->where("prm_id", $permission->prm_id)->count()) "selected": true @endif}'>
+                                            data-jstree='{"icon": "fa fa-shield" @if($profilePermissions->where("prm_id", $permission->prm_id)->count()),"selected": true @endif}'>
                                             {{$permission->prm_method}} - {{$permission->prm_description}}
                                         </li>
                                     @endforeach

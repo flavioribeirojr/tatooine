@@ -14,7 +14,7 @@ class AlterResourcesAddRctId extends Migration
     public function up()
     {
         Schema::table('resources', function (Blueprint $table) {
-            $table->integer('rsc_rct_id')->unsigned();
+            $table->integer('rsc_rct_id')->unsigned()->nullable();
             
             $table->foreign('rsc_rct_id')->references('rct_id')->on('resources_categories');
         });

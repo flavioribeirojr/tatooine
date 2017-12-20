@@ -7,7 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginControllerTest extends TestCase
 {
-
+    use RefreshDatabase;
+    
     /**
      * A basic test example.
      *
@@ -22,17 +23,10 @@ class LoginControllerTest extends TestCase
 
     public function testPostLogin()
     {
-        $response = $this->post('/login', ['usr_email' => 'admin@system.com', 'usr_password' => '123456']);
+        $user = factory(\App\Models\Security\User::class)->create();
+        
+        $response = $this->post('/login', ['usr_username' => $user->usr_username, 'usr_password' => 'secret']);
 
         $response->assertStatus(200);
-    }
-
-    public function testPostLogout()
-    {
-        $this->post('/login', ['usr_email' => 'admin@system.com', 'usr_password' => '123456']);
-
-        $response = $this->post('/logout');
-        
-        $this->assertEquals(null, \Auth::user());
     }
 }

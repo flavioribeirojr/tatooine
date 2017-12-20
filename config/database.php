@@ -78,6 +78,12 @@ return [
             'prefix' => '',
         ],
 
+        'testing' => [
+            'driver' => 'sqlite',
+            'database' => env('DB_DATABASE_TESTE', database_path('test.sqlite')),
+            'prefix' => '',
+        ]
+
     ],
 
     /*
