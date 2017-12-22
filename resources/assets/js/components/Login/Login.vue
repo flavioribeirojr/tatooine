@@ -90,16 +90,16 @@ export default {
   },
 
   mounted () {
-    this.$validator.updateDictionary({
+    const dict = {
       br: {
         messages: {
           required: () => 'Campo obrigatório',
           email: () => 'E-mail inválido'
         }
       }
-    })
+    }
 
-    this.$validator.setLocale('br')
+    this.$validator.localize('br', dict)
   }
 }
 </script>
