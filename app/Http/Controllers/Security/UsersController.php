@@ -35,7 +35,7 @@ class UsersController extends Controller
     {
         try {
             $data = $request->all();
-
+            
             $userCreated = $this->userRepository->create($data);
 
             return redirect(baseUrl('/users'))->with('message', 'Usuário cadastrado com sucesso');

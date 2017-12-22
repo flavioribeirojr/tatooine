@@ -24,7 +24,7 @@ class UserRequest extends Request
         if ($this->method() == 'PUT') {
             unset($rules['usr_password'], $rules['usr_password_repeat']);
         }
-
+        
         return $rules;
     }
 }

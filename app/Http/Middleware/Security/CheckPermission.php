@@ -23,7 +23,7 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
-        $user = \Auth::user();        
+        $user = \Auth::user();    
         
         if (!$user) {
             return redirect('/login', 302);
@@ -34,7 +34,7 @@ class CheckPermission
         }
         
         $userHasPermission = $this->security->checkUserPermission($user, $request->path());
-        
+
         if (!$userHasPermission) {
             return redirect('/login', 302);
         }

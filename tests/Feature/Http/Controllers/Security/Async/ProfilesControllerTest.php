@@ -9,11 +9,14 @@ class ProfilesControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $profile;
+
     public function setUp()
     {
         parent::setUp();
 
         \Auth::login(factory(\App\Models\Security\User::class)->create());
+        $this->profile = $profile = factory(\App\Models\Security\Profile::class)->create();
     }
 
     public function testGetProfiles()
@@ -25,35 +28,40 @@ class ProfilesControllerTest extends TestCase
 
     public function testSetProfilePermissions()
     {
-        $profile = factory(\App\Models\Security\Profile::class)->create();
-
         $permissionOne = factory(\App\Models\Security\Permission::class)->create();
         $permissionTwo = factory(\App\Models\Security\Permission::class)->create();
 
         $permissions = [$permissionOne->prm_id, $permissionTwo->prm_id];
 
-        $response = $this->post(baseUrl('/profiles/setpermissions/' . $profile->prf_id), ['permissions' => $permissions]);
+        $response = $this->post(baseUrl('/profiles/setpermissions/' . $this->profile->prf_id), ['permissions' => $permissions]);
 
-        $permissionsProfileCount = $profile->permissions->count();
+        $permissionsProfileCount = $this->profile->permissions->count();
 
         $this->assertEquals(2, $permissionsProfileCount);
     }
 
     public function testUnsetProfilePermissions()
     {
-        $profile = factory(\App\Models\Security\Profile::class)->create();
-        
         $permissionOne = factory(\App\Models\Security\Permission::class)->create();
         $permissionTwo = factory(\App\Models\Security\Permission::class)->create();
 
-        $profile->permissions()->attach([$permissionOne, $permissionTwo]);
+        $this->profile->permissions()->attach([$permissionOne, $permissionTwo]);
 
         $permissions = [$permissionOne->prm_id];
 
-        $response = $this->post(baseUrl('/profiles/setpermissions/' . $profile->prf_id), ['permissions' => $permissions]);
+        $response = $this->post(baseUrl('/profiles/setpermissions/' . $this->profile->prf_id), ['permissions' => $permissions]);
 
-        $permissionsProfileCount = $profile->permissions->count();
+        $permissionsProfileCount = $this->profile->permissions->count();
 
         $this->assertEquals(1, $permissionsProfileCount);
+    }
+
+    public function testSetNonexistentPermission()
+    {
+        $response = $this->post(baseUrl('/profiles/setpermissions/' . $this->profile->prf_id), ['permissions' => [1, 2]]);
+
+        $countProfilePermissions = $this->profile->permissions->count();
+
+        $this->assertEquals(0, $countProfilePermissions);
     }
 }
