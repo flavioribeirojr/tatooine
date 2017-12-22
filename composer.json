@@ -1,6 +1,6 @@
 {
     "name": "flaviojr/tatooine",
-    "description": "The Laravel Framework.",
+    "description": "Start point for new projects",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
