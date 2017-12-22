@@ -9,6 +9,8 @@ use App\Models\Security\User;
 
 class UsersControllerTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public function setUp()
     {
         parent::setUp();

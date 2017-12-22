@@ -56,7 +56,7 @@ class ProfilesControllerTest extends TestCase
         $this->assertEquals(1, $permissionsProfileCount);
     }
 
-    public function testSetNonexistentPermission()
+    public function testSetNonExistentPermission()
     {
         $response = $this->post(baseUrl('/profiles/setpermissions/' . $this->profile->prf_id), ['permissions' => [1, 2]]);
 
