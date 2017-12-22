@@ -23,6 +23,43 @@ class UserRepositoryTest extends TestCase
         $this->userRepository = new UserRepository(new User(), $profileRepository);
     }
 
+    public function testUserLogin()
+    {
+        $user = factory(\App\Models\Security\User::class)->create();
+
+        $loggedIn = $this->userRepository->logUserIn(['usr_username' => $user->usr_username, 'usr_password' => 'secret']);
+
+        $this->assertEquals(true, $loggedIn);
+    }
+
+    public function testDoNotLoginWrongUser()
+    {
+        $user = factory(\App\Models\Security\User::class)->make();
+        
+        $loggedIn = $this->userRepository->logUserIn(['usr_username' => $user->usr_username, 'usr_password' => 'secret']);
+
+        $this->assertEquals(false, $loggedIn);
+    }
+
+    public function testGetUserPermissions()
+    {
+        $user = factory(\App\Models\Security\User::class)->create();
+        $profile = factory(\App\Models\Security\Profile::class)->create();
+        $permissions = factory(\App\Models\Security\Permission::class, 5)->create();
+
+        $profile->permissions()->attach($permissions->pluck('prm_id'));
+        $user->profiles()->attach($profile->prf_id);
+
+        $userResources = $this->userRepository->getUserPermissions($user);
+        
+        $userPermissions = array_flatten($userResources['permissions']);
+        $permissions = $permissions->pluck('prm_method')->toArray();
+
+        $arrayEquals = array_diff($userPermissions, $permissions);
+
+        $this->assertEquals(0, count($arrayEquals));
+    }
+
     public function testSetNoneExistentProfileToUser()
     {
         $user = factory(\App\Models\Security\User::class)->create();
