@@ -1,5 +1,5 @@
 # Tatooine
-Start point for newer projects.
+Start point for newer projects. Build with Laravel and Vue :ok_hand:
 #### Some cool stuff:
 * Authorization implemented with Laravel Auth
 * Security schema for management of user and their permissions
@@ -12,11 +12,12 @@ To get going you only need to do the following:
 
 ``` sh
 $ composer install
-$ npm install
-$ npm run dev
 $ cp .env.example .env
 $ php artisan key:generate
 $ php artisan migrate && php artisan db:seed
+$ npm install
+$ npm run dev
+$ ./vendor/bin/phpunit
 $ php artisan serve 
 ```
 
